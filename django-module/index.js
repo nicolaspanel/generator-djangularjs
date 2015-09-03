@@ -96,7 +96,7 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             util.replaceInFile(
                 'server/settings/base.py',
                 util.regexes.installedApps,
-                format('INSTALLED_APPS = ($1\'server.{0}\',\n)', this.underscoredName));
+                format('INSTALLED_APPS = ($1    \'server.{0}\',\n)', this.underscoredName));
         }
     }
 });

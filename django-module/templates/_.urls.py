@@ -5,12 +5,12 @@ Use `urlpatterns` to list both both APIViews and viewsets for this module.
 NOTE: __generator-djangularjs__ may automatically modified this file.
 """
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url, include
 from rest_framework import routers
 from . import views
 
 router = routers.SimpleRouter()
 
 urlpatterns = [
-    url(r'^', include(router.urls),
+    url(r'^', include(router.urls)),
 ]
