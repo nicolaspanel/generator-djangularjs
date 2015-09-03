@@ -244,10 +244,14 @@ describe('DjangularJS generator', function() {
                 });
 
                 describe('djangularjs:django-viewset', function () {
-                    var viewsetName = 'my';
+                    var viewsetName = 'to_to';
 
                     beforeEach(function(done) {
-                        runGenerator('django-viewset', viewsetName, {moduleName: moduleName, methods: ['addList', 'addRetrieve', 'addCreate', 'addUpdate', 'addDestroy']}, done);
+                        runGenerator('django-viewset', viewsetName, {
+                            moduleName: moduleName,
+                            methods: ['addList', 'addRetrieve', 'addCreate', 'addUpdate', 'addDestroy'],
+                            routePath: 'totos'
+                        }, done);
                     });
 
                     it('should create expected files', function() {
@@ -260,12 +264,17 @@ describe('DjangularJS generator', function() {
 
                     it('should import view', function () {
                         expect(read(format('server/{0}/views/__init__.py', moduleName)))
-                            .to.contain('from .my import MyViewSet');
+                            .to.contain('from .to_to import ToToViewSet');
                     });
 
                     it('should include module urls into server/urls.py', function () {
                         expect(read('server/urls.py'))
                             .to.contain(format('url(r\'^\', include(\'server.{0}.urls\')),', moduleName));
+                    });
+
+                    it('should register the viewset', function () {
+                        expect(read(format('server/{0}/urls.py', moduleName)))
+                            .to.contain('router.register(r\'totos\', views.ToToViewSet, base_name=\'to-to\')');
                     });
                 });
 

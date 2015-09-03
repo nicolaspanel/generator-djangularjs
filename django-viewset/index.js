@@ -77,6 +77,7 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             this.addUpdate = _.contains(props.methods, 'addUpdate');
             this.addDestroy = _.contains(props.methods, 'addDestroy');
 
+            this.routePath = props.routePath;
             this.slugifiedRoutePath = _.kebabCase(this.routePath);
 
             done();
