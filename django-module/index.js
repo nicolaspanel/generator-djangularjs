@@ -87,7 +87,7 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             this.template('_.urls.py', format('server/{0}/urls.py', this.underscoredName));
             util.replaceInFile('server/urls.py',
                                util.regexes.leaveMePy,
-                               format('\n    # leave me here #\n    url(r\'^\', include(\'server.{0}.urls\')),', this.underscoredName));
+                               format('    # leave me here #\n    url(r\'^\', include(\'server.{0}.urls\')),', this.underscoredName));
 
         }
 

@@ -11,7 +11,7 @@ from . import views
 
 router = routers.SimpleRouter()
 
-router.register(r'<%= slugifiedName %>s', views.<%= classifiedName %>ViewSet, base_name='<%= slugifiedName %>')
+router.register(r'<%= slugifiedRoutePath %>', views.<%= classifiedName %>ViewSet, base_name='<%= slugifiedName %>')
 
 urlpatterns = [
     url(r'^', include(router.urls)),

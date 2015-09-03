@@ -6,28 +6,28 @@ class Test<%= classifiedName %>ViewSet(APITestCase):<% if(!addList && !addRetrie
     pass<% } %><% if(addList){ %>
 
     def test_list_when_logged_out(self):
-        self.http_get('/<%= slugifiedName %>/',
+        self.http_get('/<%= slugifiedRoutePath %>/',
                       user=None,
                       expected_status=status.HTTP_200_OK)<% } %><% if(addRetrieve){ %>
 
     def test_retrieve_when_logged_out(self):
-        self.http_get('/<%= slugifiedName %>/0/',
+        self.http_get('/<%= slugifiedRoutePath %>/0/',
                       user=None,
                       expected_status=status.HTTP_200_OK)<% } %><% if(addCreate){ %>
 
     def test_create_when_logged_out(self):
-        self.http_post('/<%= slugifiedName %>/',
+        self.http_post('/<%= slugifiedRoutePath %>/',
                        user=None,
                        data={},
-                       expected_status=status.HTTP_401_UNAUTHORIZED)<% } %><% if(addUpdate){ %>
+                       expected_status=status.HTTP_403_FORBIDDEN)<% } %><% if(addUpdate){ %>
 
     def test_update_when_logged_out(self):
-        self.http_put('/<%= slugifiedName %>/0/',
+        self.http_put('/<%= slugifiedRoutePath %>/0/',
                        user=None,
                        data={},
-                       expected_status=status.HTTP_401_UNAUTHORIZED)<% } %><% if(addDestroy){ %>
+                       expected_status=status.HTTP_403_FORBIDDEN)<% } %><% if(addDestroy){ %>
 
     def test_destroy_when_logged_out(self):
-        self.http_delete('/<%= slugifiedName %>/0/',
+        self.http_delete('/<%= slugifiedRoutePath %>/0/',
                          user=None,
-                         expected_status=status.HTTP_401_UNAUTHORIZED)<% } %>
+                         expected_status=status.HTTP_403_FORBIDDEN)<% } %>

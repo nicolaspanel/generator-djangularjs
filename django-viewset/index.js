@@ -63,6 +63,10 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
                 name: ' destroy',
                 checked: false
             }]
+        }, {
+            name: 'routePath',
+            message: 'What do you want your route path to be?',
+            default: this.slugifiedName + 's'
         }];
 
         this.prompt(prompts, function(props) {
@@ -72,6 +76,8 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             this.addCreate = _.contains(props.methods, 'addCreate');
             this.addUpdate = _.contains(props.methods, 'addUpdate');
             this.addDestroy = _.contains(props.methods, 'addDestroy');
+
+            this.slugifiedRoutePath = _.kebabCase(this.routePath);
 
             done();
         }.bind(this));
@@ -105,7 +111,7 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             // add route into urls files
             util.replaceInFile(pathToUrls,
                 util.regexes.urlpatterns,
-                format('\nrouter.register(r\'{0}\', views.{1}ViewSet, base_name=\'{0}\')\n\nurlpatterns = [', this.slugifiedName, this.classifiedName));
+                format('\nrouter.register(r\'{0}\', views.{2}ViewSet, base_name=\'{1}\')\n\nurlpatterns = [', this.slugifiedRoutePath, this.slugifiedName, this.classifiedName));
         }
 
         this.template('_.views.viewset.py', format('server/{0}/views/{1}.py', this.underscoredModuleName, this.underscoredName));

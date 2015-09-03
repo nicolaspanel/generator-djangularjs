@@ -93,14 +93,14 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             if (util.readFileAsString('server/urls.py').indexOf(format('\'server.{0}.urls\'', this.underscoredName)) === -1) {
                 util.replaceInFile('server/urls.py',
                     util.regexes.leaveMePy,
-                    format('\n    # leave me here #\n    url(r\'^\', include(\'server.{0}.urls\')),', this.underscoredModuleName));
+                    format('    # leave me here #\n    url(r\'^\', include(\'server.{0}.urls\')),', this.underscoredModuleName));
             }
         }
         else {
             // add route into urls files
-            var newUrls = format('\n\nurlpatterns = [' +
-                '   url(r\'^{0}/$\', views.{1}View.as_view()),'+
-                '   url(r\'^{0}/(?P<pk>[0-9]+)/$\', views.{1}View.as_view()),' +
+            var newUrls = format('\n\nurlpatterns = [\n' +
+                '    url(r\'^{0}/$$\', views.{1}View.as_view()),\n'+
+                '    url(r\'^{0}/(?P<pk>[0-9]+)/$$\', views.{1}View.as_view()),' +
                 '', this.slugifiedName, this.classifiedName);
 
             util.replaceInFile(pathToUrls,
