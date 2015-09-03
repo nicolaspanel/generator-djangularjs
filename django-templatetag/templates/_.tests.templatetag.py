@@ -7,7 +7,7 @@ class Test<%= classifiedName %>Temlatetag(TestCase):
     def setUp(self):
         self.context = {}
 
-     def _render(self, template):
+    def _render(self, template):
         return Template(template).render(Context(self.context)).strip()
 
     def test_tag(self):

@@ -51,7 +51,7 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
                 name: ' POST',
                 checked: false
             },{
-                value: 'addPUT',
+                value: 'addPut',
                 name: ' PUT',
                 checked: false
             },{
@@ -75,7 +75,7 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
     renderModule: function() {
         var pathToViews = format('server/{0}/views', this.underscoredModuleName);
         var pathToViewsInit = format('server/{0}/views/__init__.py', this.underscoredModuleName);
-        if (!fs.exists(pathToViews)){
+        if (!fs.existsSync(pathToViews)){
             mkdirp.sync(pathToViews);
             this.template('_.views.__init__.py', pathToViewsInit);
         }
@@ -85,7 +85,7 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
         }
 
         var pathToUrls = format('server/{0}/urls.py', this.underscoredModuleName);
-        if (!fs.exists(pathToUrls)){
+        if (!fs.existsSync(pathToUrls)){
             // create file from template
             this.template('_.urls.py', pathToUrls);
 
@@ -111,7 +111,7 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
         this.template('_.views.view.py', format('server/{0}/views/{1}.py', this.underscoredModuleName, this.underscoredName));
 
         var pathToTests = format('server/{0}/tests', this.underscoredModuleName);
-        if (!fs.exists(pathToTests)){
+        if (!fs.existsSync(pathToTests)){
             mkdirp.sync(pathToTests);
             this.template('_.tests.__init__.py', format('server/{0}/tests/__init__.py', this.underscoredModuleName));
         }

@@ -37,13 +37,13 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
 
     renderModule: function() {
         var pathToTemplateTags = format('server/{0}/templatetags', this.underscoredModuleName);
-        if (!fs.exists(pathToTemplateTags)){
+        if (!fs.existsSync(pathToTemplateTags)){
             mkdirp.sync(pathToTemplateTags);
             this.template('_.templatetags.__init__.py', format('server/{0}/templatetags/__init__.py', this.underscoredModuleName));
         }
         this.template('_.templatetags.templatetag.py', format('server/{0}/templatetags/{1}.py', this.underscoredModuleName, this.underscoredName));
         var pathToTests = format('server/{0}/tests', this.underscoredModuleName);
-        if (!fs.exists(pathToTests)){
+        if (!fs.existsSync(pathToTests)){
             mkdirp.sync(pathToTests);
             this.template('_.tests.__init__.py', format('server/{0}/tests/__init__.py', this.underscoredModuleName));
         }

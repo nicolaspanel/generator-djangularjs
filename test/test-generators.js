@@ -25,7 +25,7 @@ function runGenerator(generatorType, name, promptAnswers, done) {
 
 describe('DjangularJS generator', function() {
     var workspace;
-    this.timeout(3000);
+    this.timeout(5000);
 
     afterEach(temp.cleanup);
 
@@ -235,6 +235,32 @@ describe('DjangularJS generator', function() {
                     it('should import view', function () {
                         expect(read(format('server/{0}/views/__init__.py', moduleName)))
                             .to.contain('from .my_view import MyViewView');
+                    });
+
+                    it('should include module urls into server/urls.py', function () {
+                        expect(read('server/urls.py'))
+                            .to.contain(format('url(r\'^\', include(\'server.{0}.urls\')),', moduleName));
+                    });
+                });
+
+                describe('djangularjs:django-viewset', function () {
+                    var viewsetName = 'my';
+
+                    beforeEach(function(done) {
+                        runGenerator('django-viewset', viewsetName, {moduleName: moduleName, methods: ['list', 'retrieve', 'create', 'update', 'destroy']}, done);
+                    });
+
+                    it('should create expected files', function() {
+                        assert.file([
+                            format("server/{0}/views/__init__.py", moduleName),
+                            format("server/{0}/views/{1}.py", moduleName, viewsetName),
+                            format("server/{0}/tests/test_{1}_viewset.py", moduleName, viewsetName),
+                        ]);
+                    });
+
+                    it('should import view', function () {
+                        expect(read(format('server/{0}/views/__init__.py', moduleName)))
+                            .to.contain('from .my import MyViewset');
                     });
 
                     it('should include module urls into server/urls.py', function () {

@@ -1,6 +1,6 @@
 {
   "name": "generator-djangularjs",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "Yeoman Generator for DJANGULARJS",
   "main": "app/index.js",
   "repository": "nicolaspanel/generator-djangularjs",
