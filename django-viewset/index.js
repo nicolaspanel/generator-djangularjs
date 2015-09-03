@@ -43,30 +43,35 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             name: 'methods',
             message: 'Which methods would you like to include?',
             choices: [{
-                value: 'addGet',
-                name: ' GET',
+                value: 'addList',
+                name: ' list',
                 checked: true
             },{
-                value: 'addPost',
-                name: ' POST',
+                value: 'addRetrieve',
+                name: ' retrieve',
+                checked: true
+            },{
+                value: 'addCreate',
+                name: ' create',
                 checked: false
             },{
-                value: 'addPut',
-                name: ' PUT',
+                value: 'addUpdate',
+                name: ' update',
                 checked: false
             },{
-                value: 'addDelete',
-                name: ' DELETE',
+                value: 'addDestroy',
+                name: ' destroy',
                 checked: false
             }]
         }];
 
         this.prompt(prompts, function(props) {
 
-            this.addGet = _.contains(props.methods, 'addGet');
-            this.addPost = _.contains(props.methods, 'addPost');
-            this.addPut = _.contains(props.methods, 'addPut');
-            this.addDelete = _.contains(props.methods, 'addDelete');
+            this.addList = _.contains(props.methods, 'addList');
+            this.addRetrieve = _.contains(props.methods, 'addRetrieve');
+            this.addCreate = _.contains(props.methods, 'addCreate');
+            this.addUpdate = _.contains(props.methods, 'addUpdate');
+            this.addDestroy = _.contains(props.methods, 'addDestroy');
 
             done();
         }.bind(this));
@@ -81,7 +86,7 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
         }
         else {
             // we assume init file exists too
-            util.appendInFile(pathToViewsInit, format('\nfrom .{0} import {1}View', this.underscoredName, this.classifiedName));
+            util.appendInFile(pathToViewsInit, format('\nfrom .{0} import {1}ViewSet', this.underscoredName, this.classifiedName));
         }
 
         var pathToUrls = format('server/{0}/urls.py', this.underscoredModuleName);
@@ -98,24 +103,19 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
         }
         else {
             // add route into urls files
-            var newUrls = format('\n\nurlpatterns = [' +
-                '   url(r\'^{0}/$\', views.{1}View.as_view()),'+
-                '   url(r\'^{0}/(?P<pk>[0-9]+)/$\', views.{1}View.as_view()),' +
-                '', this.slugifiedName, this.classifiedName);
-
             util.replaceInFile(pathToUrls,
                 util.regexes.urlpatterns,
-                newUrls);
+                format('\nrouter.register(r\'{0}\', views.{1}ViewSet, base_name=\'{0}\')\n\nurlpatterns = [', this.slugifiedName, this.classifiedName));
         }
 
-        this.template('_.views.view.py', format('server/{0}/views/{1}.py', this.underscoredModuleName, this.underscoredName));
+        this.template('_.views.viewset.py', format('server/{0}/views/{1}.py', this.underscoredModuleName, this.underscoredName));
 
         var pathToTests = format('server/{0}/tests', this.underscoredModuleName);
         if (!fs.existsSync(pathToTests)){
             mkdirp.sync(pathToTests);
             this.template('_.tests.__init__.py', format('server/{0}/tests/__init__.py', this.underscoredModuleName));
         }
-        this.template('_.tests.test.py', format('server/{0}/tests/test_{1}_view.py', this.underscoredModuleName, this.underscoredName));
+        this.template('_.tests.test.py', format('server/{0}/tests/test_{1}_viewset.py', this.underscoredModuleName, this.underscoredName));
     }
 });
 

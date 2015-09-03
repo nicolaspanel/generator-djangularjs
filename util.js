@@ -71,7 +71,7 @@ module.exports = {
     appendInFile: appendInFile,
     regexes: {
         installedApps: /INSTALLED_APPS\s*=\s*(?:\(|\[)((?:.|\n|)*?)(?:\)|\])/i,
-        urlpatterns: /urlpatterns\s*=\s*\[/i,
+        urlpatterns: /\n*urlpatterns\s*=\s*\[/i,
         leaveMePy: /#\s*leave me here\s*#/i,
         leaveMeJs: /\/\*\s*leave me here\s*\*\//i
     }

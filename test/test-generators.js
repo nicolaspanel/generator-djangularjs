@@ -221,7 +221,7 @@ describe('DjangularJS generator', function() {
                     var viewName = 'my_view';
 
                     beforeEach(function(done) {
-                        runGenerator('django-api-view', viewName, {moduleName: moduleName, methods: ['get', 'post', 'put', 'delete']}, done);
+                        runGenerator('django-api-view', viewName, {moduleName: moduleName, methods: ['addGet', 'addPost', 'addPut', 'addDelete']}, done);
                     });
 
                     it('should create expected files', function() {
@@ -247,7 +247,7 @@ describe('DjangularJS generator', function() {
                     var viewsetName = 'my';
 
                     beforeEach(function(done) {
-                        runGenerator('django-viewset', viewsetName, {moduleName: moduleName, methods: ['list', 'retrieve', 'create', 'update', 'destroy']}, done);
+                        runGenerator('django-viewset', viewsetName, {moduleName: moduleName, methods: ['addList', 'addRetrieve', 'addCreate', 'addUpdate', 'addDestroy']}, done);
                     });
 
                     it('should create expected files', function() {
@@ -260,7 +260,7 @@ describe('DjangularJS generator', function() {
 
                     it('should import view', function () {
                         expect(read(format('server/{0}/views/__init__.py', moduleName)))
-                            .to.contain('from .my import MyViewset');
+                            .to.contain('from .my import MyViewSet');
                     });
 
                     it('should include module urls into server/urls.py', function () {
