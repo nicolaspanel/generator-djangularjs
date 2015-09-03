@@ -25,7 +25,7 @@ function runGenerator(generatorType, name, promptAnswers, done) {
 
 describe('DjangularJS generator', function() {
     var workspace;
-    this.timeout(5000);
+    this.timeout(10000); // for travis
 
     afterEach(temp.cleanup);
 
