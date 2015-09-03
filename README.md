@@ -1,3 +1,7 @@
+Scaffolding tools for __[DjangularJS](https://github.com/nicolaspanel/djangularjs)__
+
+
+[![Build Status](https://travis-ci.org/nicolaspanel/generator-djangularjs.png)](https://travis-ci.org/nicolaspanel/generator-djangularjs)
 
 __STATUS__: under active development
 
@@ -137,11 +141,47 @@ $ yo djangularjs:angular-filter <filter-name>
 ```
 $ yo djangularjs:django-module <module-name>
 ```
+
+
+### Django Template Tag Sub-Generator
+
+```
+$ yo djangularjs:django-templatetag <templatetag-name>
+```
+
+See [Django template tags](https://docs.djangoproject.com/en/1.8/howto/custom-template-tags/#writing-custom-template-tags)
+
+
+### Django Filter Sub-Generator
+
+```
+$ yo djangularjs:django-filter <filter-name>
+```
+
+See [Django filters](https://docs.djangoproject.com/en/1.8/howto/custom-template-tags/#writing-custom-template-filters)
+
+
+### Django APIView generator
+
+```
+$ yo djangularjs:django-api-view <api-view-name>
+```
+
+See [Django Rest Framework APIView](http://www.django-rest-framework.org/api-guide/views/) for information
+
+
+### Django ViewSet generator
+
+```
+$ yo djangularjs:django-viewset <viewset-name>
+```
+
+See [Django Rest Framework ViewSet](http://www.django-rest-framework.org/api-guide/viewsets/) for more information
  
  
 ## Credits
 
- - [MEAN.JS](http://meanjs.org/)
+Inspired from [MEAN.JS](http://meanjs.org/)
 
 
 # License
