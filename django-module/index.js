@@ -46,6 +46,11 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
                 name: ' views/ urls.py',
                 checked: false
             }]
+        }, {
+            type: 'confirm',
+            name: 'addToInstalledApps',
+            message: 'Do you want to add this module to installed apps?',
+            default: true
         }];
 
         this.prompt(prompts, function(props) {
@@ -53,7 +58,7 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             this.addTemplatetags = _.contains(props.modules, 'addTemplatetags');
             this.addTests = _.contains(props.modules, 'addTests');
             this.addUrls = _.contains(props.modules, 'addUrls');
-
+            this.addToInstalledApps = props.addToInstalledApps;
             done();
         }.bind(this));
     },
@@ -82,13 +87,17 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             this.template('_.urls.py', format('server/{0}/urls.py', this.underscoredName));
             util.replaceInFile('server/urls.py',
                                util.regexes.leaveMePy,
-                               format('\n# leave me here #\n    url(r\'^\', include(\'server.{0}.urls\')),', this.underscoredName));
+                               format('\n    # leave me here #\n    url(r\'^\', include(\'server.{0}.urls\')),', this.underscoredName));
 
         }
-        util.replaceInFile(
-            'server/settings/base.py',
-            util.regexes.leaveMePy,
-            format('\'server.{0}\',\n    # leave me here #', this.underscoredName));
+
+        // add module to installed apps
+        if (this.addToInstalledApps) {
+            util.replaceInFile(
+                'server/settings/base.py',
+                util.regexes.installedApps,
+                format('INSTALLED_APPS = ($1\'server.{0}\',\n)', this.underscoredName));
+        }
     }
 });
 

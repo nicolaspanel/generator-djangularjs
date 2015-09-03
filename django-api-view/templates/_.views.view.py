@@ -11,8 +11,8 @@ class <%= classifiedName %>View(views.APIView):<% if (!addGet && !addPost && !ad
     def post(self, request):
         raise NotImplementedError<% } %><% if(addPut){ %>
 
-    def put(self, request):
+    def put(self, request, pk):
         raise NotImplementedError<% } %><% if(addDelete){ %>
 
-    def delete(self, request):
+    def delete(self, request, pk):
         raise NotImplementedError<% } %>

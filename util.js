@@ -57,6 +57,10 @@ function replaceInFile(filePath, searchValue,replaceValue) {
     return writeFileFromString(readFileAsString(filePath).replace(searchValue, replaceValue), filePath);
 }
 
+function appendInFile(filePath, appendedValue) {
+    return writeFileFromString(readFileAsString(filePath) + appendedValue, filePath);
+}
+
 module.exports = {
     listAngularModules: listAngularModules,
     listDjangoModules: listDjangoModules,
@@ -64,7 +68,10 @@ module.exports = {
     readFileAsString: readFileAsString,
     writeFileFromString: writeFileFromString,
     replaceInFile: replaceInFile,
+    appendInFile: appendInFile,
     regexes: {
+        installedApps: /INSTALLED_APPS\s*=\s*(?:\(|\[)((?:.|\n|)*?)(?:\)|\])/i,
+        urlpatterns: /urlpatterns\s*=\s*\[/i,
         leaveMePy: /#\s*leave me here\s*#/i,
         leaveMeJs: /\/\*\s*leave me here\s*\*\//i
     }

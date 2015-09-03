@@ -203,7 +203,7 @@ describe('DjangularJS generator', function() {
 
             describe('without any module', function () {
                 beforeEach(function(done) {
-                    runGenerator('django-module', moduleName, {modules: []}, done);
+                    runGenerator('django-module', moduleName, {modules: [], addToInstalledApps: false}, done);
                 });
 
                 it('should create expected files', function() {
@@ -212,9 +212,9 @@ describe('DjangularJS generator', function() {
                     ]);
                 });
 
-                it('should have added new module into INSTALLED_APPS', function () {
+                it('should NOT have added new module into INSTALLED_APPS', function () {
                     expect(read('server/settings/base.py'))
-                        .to.match(new RegExp('(?:\\\'|")server\\.my_module(?:\\\'|"),\n'));
+                        .to.not.contain('\'server.my_module\',\n');
                 });
 
                 describe('djangularjs:django-api-view', function () {
@@ -235,6 +235,11 @@ describe('DjangularJS generator', function() {
                     it('should import view', function () {
                         expect(read(format('server/{0}/views/__init__.py', moduleName)))
                             .to.contain('from .my_view import MyViewView');
+                    });
+
+                    it('should include module urls into server/urls.py', function () {
+                        expect(read('server/urls.py'))
+                            .to.contain(format('url(r\'^\', include(\'server.{0}.urls\')),', moduleName));
                     });
                 });
 
@@ -296,6 +301,11 @@ describe('DjangularJS generator', function() {
                         format("server/{0}/__init__.py", moduleName),
                         format("server/{0}/templatetags/__init__.py", moduleName)
                     ]);
+                });
+
+                it('should have added new module into INSTALLED_APPS', function () {
+                    expect(read('server/settings/base.py'))
+                        .to.contain('\'server.my_module\',\n');
                 });
 
                 describe('djangularjs:django-templatetag', function () {

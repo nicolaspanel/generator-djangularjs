@@ -74,16 +74,42 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
 
     renderModule: function() {
         var pathToViews = format('server/{0}/views', this.underscoredModuleName);
+        var pathToViewsInit = format('server/{0}/views/__init__.py', this.underscoredModuleName);
         if (!fs.exists(pathToViews)){
             mkdirp.sync(pathToViews);
-            this.template('_.views.__init__.py', format('server/{0}/views/__init__.py', this.underscoredModuleName));
+            this.template('_.views.__init__.py', pathToViewsInit);
         }
         else {
-            util.replaceInFile(format('server/{0}/urls.py', this.underscoredModuleName),
-                util.regexes.leaveMePy,
-                format('from .{0} import {1}View\n# leave me here #', this.underscoredName, this.classifiedName));
+            // we assume init file exists too
+            util.appendInFile(pathToViewsInit, format('\nfrom .{0} import {1}View', this.underscoredName, this.classifiedName));
         }
+
+        var pathToUrls = format('server/{0}/urls.py', this.underscoredModuleName);
+        if (!fs.exists(pathToUrls)){
+            // create file from template
+            this.template('_.urls.py', pathToUrls);
+
+            // make sure that module urls are registered on the project
+            if (util.readFileAsString('server/urls.py').indexOf(format('\'server.{0}.urls\'', this.underscoredName)) === -1) {
+                util.replaceInFile('server/urls.py',
+                    util.regexes.leaveMePy,
+                    format('\n    # leave me here #\n    url(r\'^\', include(\'server.{0}.urls\')),', this.underscoredModuleName));
+            }
+        }
+        else {
+            // add route into urls files
+            var newUrls = format('urlpatterns = [' +
+                '   url(r\'^{0}/$\', views.{1}View.as_view()),'+
+                '   url(r\'^{0}/(?P<pk>[0-9]+)/$\', views.{1}View.as_view()),' +
+                '', this.slugifiedName, this.classifiedName);
+
+            util.replaceInFile(pathToUrls,
+                util.regexes.urlpatterns,
+                newUrls);
+        }
+
         this.template('_.views.view.py', format('server/{0}/views/{1}.py', this.underscoredModuleName, this.underscoredName));
+
         var pathToTests = format('server/{0}/tests', this.underscoredModuleName);
         if (!fs.exists(pathToTests)){
             mkdirp.sync(pathToTests);
