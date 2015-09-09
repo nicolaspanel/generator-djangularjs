@@ -79,6 +79,9 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             mkdirp.sync(pathToViews);
             this.template('_.views.__init__.py', pathToViewsInit);
         }
+        if (!fs.existsSync(pathToViewsInit)){
+            this.template('_.views.__init__.py', pathToViewsInit);
+        }
         else {
             // we assume init file exists too
             util.appendInFile(pathToViewsInit, format('\nfrom .{0} import {1}View', this.underscoredName, this.classifiedName));

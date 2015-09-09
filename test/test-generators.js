@@ -317,6 +317,23 @@ describe('DjangularJS generator', function() {
                     });
 
                 });
+
+                describe('djangularjs:django-serializer', function () {
+                    var filterName = 'my_serializer';
+
+                    beforeEach(function(done) {
+                        runGenerator('django-serializer', filterName, {moduleName: moduleName, haveTest: true}, done);
+                    });
+
+                    it('should create expected files', function() {
+                        assert.file([
+                            format("server/{0}/serializers/__init__.py", moduleName),
+                            format("server/{0}/serializers/{1}.py", moduleName, filterName),
+                            format("server/{0}/tests/test_{1}_serializer.py", moduleName, filterName)
+                        ]);
+                    });
+
+                });
             });
 
             describe('with serializers', function () {
@@ -329,6 +346,26 @@ describe('DjangularJS generator', function() {
                         format("server/{0}/__init__.py", moduleName),
                         format("server/{0}/serializers/__init__.py", moduleName)
                     ]);
+                });
+
+                describe('djangularjs:django-serializer', function () {
+                    var serializerName = 'my_serializer';
+
+                    beforeEach(function(done) {
+                        runGenerator('django-serializer', serializerName, {moduleName: moduleName, haveTest: false}, done);
+                    });
+
+                    it('should create expected files', function() {
+                        assert.file([
+                            format("server/{0}/serializers/{1}.py", moduleName, serializerName)
+                        ]);
+                    });
+
+                    it('should have added the new serializer into the serializers module', function () {
+                        expect(read(format("server/{0}/serializers/__init__.py", moduleName)))
+                            .to.contain('from .my_serializer import MySerializerSerializer');
+                    });
+
                 });
             });
 
