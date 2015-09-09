@@ -38,6 +38,14 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
                 name: ' templatetags/',
                 checked: false
             }, {
+                value: 'addManagement',
+                name: ' management/',
+                checked: false
+            }, {
+                value: 'addModels',
+                name: ' models.py admin.py',
+                checked: false
+            }, {
                 value: 'addTests',
                 name: ' tests/',
                 checked: true
@@ -58,6 +66,8 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
             this.addTemplatetags = _.contains(props.modules, 'addTemplatetags');
             this.addTests = _.contains(props.modules, 'addTests');
             this.addUrls = _.contains(props.modules, 'addUrls');
+            this.addModels = _.contains(props.modules, 'addModels');
+            this.addManagement = _.contains(props.modules, 'addManagement');
             this.addToInstalledApps = props.addToInstalledApps;
             done();
         }.bind(this));
@@ -80,6 +90,16 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
         if (this.addTests) {
             mkdirp.sync(format('server/{0}/tests', this.underscoredName));
             this.template('_.tests.__init__.py', format('server/{0}/tests/__init__.py', this.underscoredName));
+        }
+        if (this.addModels) {
+            this.template('_.admin.py', format('server/{0}/admin.py', this.underscoredName));
+            this.template('_.models.py', format('server/{0}/models.py', this.underscoredName));
+        }
+        if (this.addManagement) {
+            mkdirp.sync(format('server/{0}/management', this.underscoredName));
+            this.template('_.management.__init__.py', format('server/{0}/management/__init__.py', this.underscoredName));
+            mkdirp.sync(format('server/{0}/management/commands', this.underscoredName));
+            this.template('_.management.__init__.py', format('server/{0}/management/commands/__init__.py', this.underscoredName));
         }
         if (this.addUrls) {
             mkdirp.sync(format('server/{0}/views', this.underscoredName));

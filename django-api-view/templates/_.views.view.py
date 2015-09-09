@@ -1,6 +1,9 @@
 # -*- coding: UTF-8 -*-
+import logging
 from rest_framework import views, status
 from rest_framework.response import Response
+
+logger = logging.getLogger(__name__)
 
 class <%= classifiedName %>View(views.APIView):<% if (!addGet && !addPost && !addPut && !addDelete){ %>
     pass<% } %><% if(addGet){ %>

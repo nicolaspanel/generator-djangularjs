@@ -413,6 +413,35 @@ describe('DjangularJS generator', function() {
 
             });
 
+            describe('with admin.py and models.py', function () {
+                beforeEach(function(done) {
+                    runGenerator('django-module', moduleName, {modules: ['addModels']}, done);
+                });
+
+                it('should create expected files', function() {
+                    assert.file([
+                        format("server/{0}/__init__.py", moduleName),
+                        format("server/{0}/admin.py", moduleName),
+                        format("server/{0}/models.py", moduleName)
+                    ]);
+                });
+
+            });
+
+            describe('with management stuffs', function () {
+                beforeEach(function(done) {
+                    runGenerator('django-module', moduleName, {modules: ['addManagement']}, done);
+                });
+
+                it('should create expected files', function() {
+                    assert.file([
+                        format("server/{0}/management/__init__.py", moduleName),
+                        format("server/{0}/management/commands/__init__.py", moduleName)
+                    ]);
+                });
+
+            });
+
         });
     });
 });
