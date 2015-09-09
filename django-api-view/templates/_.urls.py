@@ -12,7 +12,7 @@ from . import views
 router = routers.SimpleRouter()
 
 urlpatterns = [
-    url(r'^<%= slugifiedName %>/$', views.<%= classifiedName %>View.as_view()),
-    url(r'^<%= slugifiedName %>/(?P<pk>[0-9]+)/$', views.<%= classifiedName %>View.as_view()),
+    url(r'^<%= slugifiedName %>/$', views.<%= classifiedName %>View.as_view()),<% if(addGet || addPut || addDelete){ %>
+    url(r'^<%= slugifiedName %>/(?P<pk>[0-9]+)/$', views.<%= classifiedName %>View.as_view()),<% } %>
     url(r'^', include(router.urls)),
 ]
