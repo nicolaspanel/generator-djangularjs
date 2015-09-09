@@ -1,7 +1,10 @@
 # -*- coding: UTF-8 -*-
+import logging
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
+
+logger = logging.getLogger(__name__)
 
 class <%= classifiedName %>ViewSet(viewsets.ViewSet):
     """

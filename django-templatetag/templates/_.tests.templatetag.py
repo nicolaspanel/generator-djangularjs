@@ -1,7 +1,10 @@
 # -*- coding: UTF-8 -*-
+import logging
 from django.template import Template, Context, TemplateSyntaxError
 from django.test import TestCase
 from django.test.utils import override_settings
+
+logger = logging.getLogger(__name__)
 
 class Test<%= classifiedName %>Temlatetag(TestCase):
     def setUp(self):
