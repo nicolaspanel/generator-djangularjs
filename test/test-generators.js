@@ -250,7 +250,8 @@ describe('DjangularJS generator', function() {
                         runGenerator('django-viewset', viewsetName, {
                             moduleName: moduleName,
                             methods: ['addList', 'addRetrieve', 'addCreate', 'addUpdate', 'addDestroy'],
-                            routePath: 'totos'
+                            routePath: 'totos',
+                            lookupField: 'my-pk'
                         }, done);
                     });
 
@@ -275,6 +276,11 @@ describe('DjangularJS generator', function() {
                     it('should register the viewset', function () {
                         expect(read(format('server/{0}/urls.py', moduleName)))
                             .to.contain('router.register(r\'totos\', views.ToToViewSet, base_name=\'to-to\')');
+                    });
+
+                    it('should customize the lookup field', function () {
+                        expect(read(format("server/{0}/views/{1}.py", moduleName, viewsetName)))
+                            .to.contain('lookup_field = \'my_pk\'');
                     });
                 });
 

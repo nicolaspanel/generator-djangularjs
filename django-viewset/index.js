@@ -84,6 +84,21 @@ var ModuleGenerator = yeoman.generators.NamedBase.extend({
         }.bind(this));
     },
 
+    askForLookupField: function () {
+
+        var done = this.async();
+        this.prompt([{
+            name: 'lookupField',
+            message: 'What do you want your lookup_field to be?',
+            default: 's'
+        }], function(props) {
+            this.lookupField = props.lookupField;
+            this.underscoredLookupField =_.snakeCase(this.lookupField);
+            done();
+        }.bind(this));
+
+    },
+
     renderModule: function() {
         var pathToViews = format('server/{0}/views', this.underscoredModuleName);
         var pathToViewsInit = format('server/{0}/views/__init__.py', this.underscoredModuleName);

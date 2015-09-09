@@ -11,21 +11,21 @@ class <%= classifiedName %>ViewSet(viewsets.ViewSet):
       http://www.django-rest-framework.org/api-guide/viewsets/
       http://www.django-rest-framework.org/api-guide/permissions/
     """
-    lookup_field = 'pk'
+    lookup_field = '<%= underscoredLookupField %>'
     permission_classes = (IsAuthenticatedOrReadOnly,)
     <% if(addList){ %>
 
     def list(self, request):
         raise NotImplementedError<% } %><% if(addRetrieve){ %>
 
-    def retrieve(self, request, pk):
+    def retrieve(self, request, <%= underscoredLookupField %>):
         raise NotImplementedError<% } %><% if(addCreate){ %>
 
-    def create(self, request, pk):
+    def create(self, request):
         raise NotImplementedError<% } %><% if(addUpdate){ %>
 
-    def update(self, request, pk):
+    def update(self, request, <%= underscoredLookupField %>):
         raise NotImplementedError<% } %><% if(addDestroy){ %>
 
-    def destroy(self, request, pk):
+    def destroy(self, request, <%= underscoredLookupField %>):
         raise NotImplementedError<% } %>
