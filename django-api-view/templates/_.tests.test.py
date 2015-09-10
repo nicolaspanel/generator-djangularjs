@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 from rest_framework import status
-from server.util.tests import APITestCase
+from server.util.tests import TestCase
 
-class Test<%= classifiedName %>View(APITestCase):<% if(!addGet && !addPost && !addPut && !addDelete){ %>
+class Test<%= classifiedName %>View(TestCase):<% if(!addGet && !addPost && !addPut && !addDelete){ %>
     pass<% } %><% if(addGet){ %>
 
     def test_get(self):

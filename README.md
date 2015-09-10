@@ -1,7 +1,7 @@
 Scaffolding tools for __[DjangularJS](https://github.com/nicolaspanel/djangularjs)__
 
 
-[![Build Status](https://travis-ci.org/nicolaspanel/generator-djangularjs.png)](https://travis-ci.org/nicolaspanel/generator-djangularjs)
+[![npm version](https://badge.fury.io/js/generator-djangularjs.svg)](http://badge.fury.io/js/generator-djangularjs) [![Build Status](https://travis-ci.org/nicolaspanel/generator-djangularjs.png)](https://travis-ci.org/nicolaspanel/generator-djangularjs)
 
 __STATUS__: under active development
 
@@ -24,18 +24,6 @@ $ npm install -g generator-djangularjs
 ```
 
 ## Generators
-
-Available generators:
-
-* [djangularjs](#application-generator) -- OK
-* [djangularjs:angular-module](#angularjs-module-sub-generator) -- OK
-* [djangularjs:angular-route](#angularjs-route-sub-generator) -- OK
-* [djangularjs:angular-controller](#angularjs-controller-sub-generator) -- OK
-* [djangularjs:angular-service](#angularjs-service-sub-generator) -- OK
-* [djangularjs:angular-directive](#angularjs-directive-sub-generator) -- OK
-* [djangularjs:angular-filter](#angularjs-filter-sub-generator) -- OK
-* [djangularjs:angular-modal](#angularjs-modal-sub-generator) -- OK
-
 
 **Note: Generators are to be run from the root directory of your app.**
 
@@ -167,7 +155,7 @@ See [Django filters](https://docs.djangoproject.com/en/1.8/howto/custom-template
 $ yo djangularjs:django-api-view <api-view-name>
 ```
 
-See [Django Rest Framework APIView](http://www.django-rest-framework.org/api-guide/views/) for information
+See [Django Rest Framework APIViews](http://www.django-rest-framework.org/api-guide/views/) for more information
 
 
 ### Django ViewSet generator
@@ -176,7 +164,16 @@ See [Django Rest Framework APIView](http://www.django-rest-framework.org/api-gui
 $ yo djangularjs:django-viewset <viewset-name>
 ```
 
-See [Django Rest Framework ViewSet](http://www.django-rest-framework.org/api-guide/viewsets/) for more information
+See [Django Rest Framework ViewSets](http://www.django-rest-framework.org/api-guide/viewsets/) for more information
+
+
+### Django Serializer generator
+
+```
+$ yo djangularjs:django-serializer <serializer-name>
+```
+
+See [Django Rest Framework Serializers](http://www.django-rest-framework.org/api-guide/serializers/) for more information
  
  
 ## Credits

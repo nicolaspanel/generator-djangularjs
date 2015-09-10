@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 from rest_framework import status
-from server.util.tests import APITestCase
+from server.util.tests import TestCase
 
-class Test<%= classifiedName %>ViewSet(APITestCase):<% if(!addList && !addRetrieve && !addCreate && !addUpdate && !addDestroy){ %>
+class Test<%= classifiedName %>ViewSet(TestCase):<% if(!addList && !addRetrieve && !addCreate && !addUpdate && !addDestroy){ %>
     pass<% } %><% if(addList){ %>
 
     def test_list_when_logged_out(self):
