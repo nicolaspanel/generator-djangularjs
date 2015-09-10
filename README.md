@@ -3,7 +3,7 @@ Scaffolding tools for __[DjangularJS](https://github.com/nicolaspanel/djangularj
 
 [![npm version](https://badge.fury.io/js/generator-djangularjs.svg)](http://badge.fury.io/js/generator-djangularjs) [![Build Status](https://travis-ci.org/nicolaspanel/generator-djangularjs.png)](https://travis-ci.org/nicolaspanel/generator-djangularjs)
 
-__STATUS__: under active development
+__STATUS__: stable
 
 
 ## Getting Started
@@ -22,6 +22,7 @@ Once you have *yo* installed, you will need to install the DjangularJS generator
 ```
 $ npm install -g generator-djangularjs
 ```
+
 
 ## Generators
 
