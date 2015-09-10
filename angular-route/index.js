@@ -84,10 +84,13 @@ var ViewGenerator = yeoman.generators.NamedBase.extend({
         if (fs.existsSync(moduleStyleFile)) {
             // Read the source routes file content
             var moduleStyleContent = util.readFileAsString(moduleStyleFile)
-                .replace('/* leave me here */', ',\n        "<%= slugifiedViewName %>.view"/* leave me here */');
+                .replace('/* leave me here */', format(',\n        "{0}.view"/* leave me here */', this.slugifiedViewName));
 
             // Save route file
             util.writeFileFromString(moduleStyleContent, moduleStyleFile);
+        }
+        else {
+            this.template('_.style.scss', moduleStyleFile);
         }
         this.template('_.controller.js', format('public/{0}/controllers/{0}.{1}.controller.js', this.slugifiedModuleName, this.slugifiedControllerName));
         this.template('_.controller.spec.js', format('public/{0}/tests/{0}.{1}.controller.spec.js', this.slugifiedModuleName, this.slugifiedControllerName));

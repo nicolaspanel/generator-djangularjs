@@ -180,6 +180,11 @@ describe('DjangularJS generator', function() {
                     ]);
                 });
 
+                it('should have include ref to view styles', function () {
+                    expect(read(format("public/{0}/styles/{0}.style.scss", moduleName)))
+                        .to.contain('"my-route.view"');
+                });
+
             });
 
             describe('djangularjs:angular-service generator', function() {
