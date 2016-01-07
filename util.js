@@ -10,7 +10,7 @@ function listAngularModules() {
     return !fs.existsSync(modulesFolder) ? []: fs.readdirSync(modulesFolder).reduce(function(memo, folder) {
         var stat = fs.statSync(modulesFolder + '/' + folder);
 
-        if (stat.isDirectory() && folder !== '_') {
+        if (stat.isDirectory() && folder !== '_' && folder !== 'i18n') {
             memo.push(folder);
         }
         return memo;
