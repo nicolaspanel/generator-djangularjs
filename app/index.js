@@ -5,7 +5,7 @@ var util = require('../util'),
 	yeoman = require('yeoman-generator'),
 	chalk = require('chalk'),
     format = require('string-format'),
-    uuid = require('node-uuid'),
+    uuid = require('uuid'),
     _ = require('lodash');
 
 var MeanGenerator = yeoman.generators.Base.extend({
